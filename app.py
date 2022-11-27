@@ -1,10 +1,12 @@
 
+import os
 from dash import Dash, dcc, html, Input, Output
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 
 app = Dash(__name__)
+server = app.server
 
 df = pd.read_excel(
     "assets/dashboard.xlsx",
@@ -198,6 +200,6 @@ def update_output(outcome, state, dateStart, dateEnd):
 
     
 
-
-if __name__=="__main__":
-    app.run_server(debug=True)
+if __name__ == "__main__":
+    app.run_server("0.0.0.0", debug=False, port=int(
+        os.environ.get('PORT', 8000)))
